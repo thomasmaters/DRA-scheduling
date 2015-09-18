@@ -19,9 +19,6 @@ vector <Task> tasks1;
 
 int main(int argc, char **argv) {
 	JobShop j;
-
-	cout << "Dit werkt niet" << endl;
-
 	return 0;
 }
 
