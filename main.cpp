@@ -11,7 +11,6 @@ using namespace std;
 int main(int argc, char **argv) {
 	JobShop j;
 	return 0;
-	Dit is een string en nu gaan we testen of het werkt!
 }
 
 
