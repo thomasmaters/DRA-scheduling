@@ -12,7 +12,15 @@ class Task
 {
 public:
 	Task();
+	Task(unsigned long machine, unsigned long tijdsduur, unsigned long jobID);
+	Task(const Task& aTask);
 	virtual ~Task();
+	Task& operator=(const Task& aTask);
+
+private:
+	unsigned long machine;
+	unsigned long tijdsduur;
+	unsigned long jobID;
 };
 
 #endif /* TASK_HPP_ */

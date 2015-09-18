@@ -5,11 +5,27 @@
  *      Author: thomas
  */
 #include<iostream>
+#include<vector>
+
 #include "JobShop.hpp"
+#include "Task.hpp"
+#include "Job.hpp"
 using namespace std;
+
+unsigned long machine1 = 0;
+unsigned long tijdsduur1 = 0;
+unsigned long jobID1 = 0;
+vector <Task> tasks1;
 
 int main(int argc, char **argv) {
 	JobShop j;
+
+	machine1 = 1;
+	tijdsduur1 = 2;
+	jobID1 = 3;
+	tasks1.push_back(Task(machine1, tijdsduur1, jobID1));
+	cout << "Dit werkt niet" << endl;
+
 	return 0;
 }
 
