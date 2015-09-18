@@ -11,7 +11,6 @@ using namespace std;
 int main(int argc, char **argv) {
 	JobShop j;
 	return 0;
-	string thomas = gay;
 }
 
 
