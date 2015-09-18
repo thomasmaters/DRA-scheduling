@@ -6,6 +6,7 @@
  */
 
 #include "Task.hpp"
+//Krijgt Jobs binnen en doet er nog niks mee. Doe maar even couten
 
 Task::Task()
 {

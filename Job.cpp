@@ -6,6 +6,12 @@
  */
 
 #include "Job.hpp"
+#include <vector>
+#include <iostream>
+
+//Hier komt een vector binnen met <2>,<1> vector[0].first, vector[0].second.
+//Voor elke pair een task aanmaken
+//Geef elke Job een ID. ID is een static variabele, nieuwe job wordt gemaakt.
 
 Job::Job()
 {
@@ -17,4 +23,3 @@ Job::~Job()
 {
 	// TODO Auto-generated destructor stub
 }
-
