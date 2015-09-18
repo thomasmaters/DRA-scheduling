@@ -2,7 +2,7 @@
  * Task.hpp
  *
  *  Created on: 17 sep. 2015
- *      Author: thomas
+ *      Author: Maurice
  */
 
 #ifndef TASK_HPP_

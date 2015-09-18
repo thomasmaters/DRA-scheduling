@@ -2,7 +2,7 @@
  * Job.hpp
  *
  *  Created on: 17 sep. 2015
- *      Author: thomas
+ *      Author: Maurice
  */
 
 #ifndef JOB_HPP_

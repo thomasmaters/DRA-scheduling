@@ -2,7 +2,7 @@
  * Task.cpp
  *
  *  Created on: 17 sep. 2015
- *      Author: thomas
+ *      Author: Maurice
  */
 
 #include "Task.hpp"
@@ -12,6 +12,10 @@ using namespace std;
 
 Task::Task()
 {
+	machine = 0;
+	tijdsduur = 0;
+	jobID = 0;
+	cout << "Niet de default constructor aanroepen" << endl;
 }
 
 Task::Task(unsigned long machine, unsigned long tijdsduur, unsigned long jobID) :

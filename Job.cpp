@@ -2,7 +2,7 @@
  * Job.cpp
  *
  *  Created on: 17 sep. 2015
- *      Author: thomas
+ *      Author: Maurice
  */
 
 #include "Job.hpp"
@@ -28,20 +28,18 @@ Job::Job()
 	cout << "Niet de default constructor aanroepen" << endl;
 }
 
-Job::Job(vector<pair<long, long> > Job)
+Job::Job(vector<pair<long, long>> Job)
 {
-
 	for (unsigned long i = 0; i < Job.size(); ++i)
 	{
 		machine = Job[i].first;
 		tijdsduur = Job[i].second;
 		jobID = i;
-		//tasks.push_back(Task(machine, tijdsduur, jobID));
+		tasks.push_back(Task(machine, tijdsduur, jobID));
 	}
 }
 
 /*Job::Job(Job& aJob) :
-		vector(aJob.vector)
 {
 }*/
 
