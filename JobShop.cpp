@@ -18,7 +18,7 @@ JobShop::JobShop()
 {
 	vector<pair<long,long> > Jobs;
 	cout << "Input jobs file path." << endl;
-	cout << readFile(readFromConsole());
+	readFile(readFromConsole());
 }
 
 string JobShop::readFromConsole() const
