@@ -19,6 +19,7 @@ vector<Job> Jobs;
 
 JobShop::JobShop()
 {
+	calculate();
 	cout << "Input jobs file path." << endl;
 	readFile(readFromConsole());
 }
@@ -80,7 +81,30 @@ string JobShop::readFile(const string fileName)
 }
 
 void JobShop::calculate(){
+	unsigned long minuten = 0;
+	vector<bool> machines(6);
 
+	while(checkForJobs()){
+		for (auto i = 0; i < 6; ++i) {
+			if(machines[i]){ //machine is bezig
+				for(auto & job : Jobs){
+					if(job[0].getEndTime() == minuten){
+						job.reCalculate();
+						machines[i] = false;
+					}
+				}
+			}
+		}
+		sort(Jobs.begin(), Jobs.end(),
+		    [](const Job & a, const Job & b) -> bool
+		{
+		    return a.getTotalTime() > b.getTotalTime();
+		});
+		for(auto & job : Jobs){
+			//if(job[0].machine)
+		}
+		++minuten;
+	}
 }
 
 
