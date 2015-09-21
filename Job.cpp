@@ -38,6 +38,11 @@ Job::Job(const Job& aJob) :
 {
 }
 
+Job::~Job()
+{
+	// TODO Auto-generated destructor stub
+}
+
 Job& Job::operator=(const Job& aJob)
 {
 	if (this != &aJob)
@@ -48,10 +53,6 @@ Job& Job::operator=(const Job& aJob)
 	return *this;
 }
 
-Job::~Job()
-{
-	// TODO Auto-generated destructor stub
-}
 
 void Job::reCalculate()
 {
@@ -62,6 +63,16 @@ void Job::reCalculate()
 bool Job::isEmpty()
 {
 	return tasks.empty();
+}
+
+Job& Job::operator [](int idx)
+{
+	return tasks[idx];
+}
+
+const Job& Job::operator [](int idx) const
+{
+	return tasks[idx];
 }
 
 unsigned long Job::getTotalTime() const
