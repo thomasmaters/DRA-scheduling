@@ -39,18 +39,18 @@ Job::Job(vector<pair<long, long>> Job)
 	}
 }
 
-Job::Job(const Task& aTask) :
-		machine(aTask.machine), tijdsduur(aTask.tijdsduur), jobID(aTask.jobID)
+Job::Job(const Job& aJob) :
+		machine(aJob.machine), tijdsduur(aJob.tijdsduur), jobID(aJob.jobID)
 {
 }
 
-Job& Job::operator=(const Task& aTask)
+Job& Job::operator=(const Job& aJob)
 {
-	if (this != &aTask)
+	if (this != &aJob)
 	{
-		machine = aTask.machine;
-		tijdsduur = aTask.tijdsduur;
-		jobID = aTask.jobID;
+		machine = aJob.machine;
+		tijdsduur = aJob.tijdsduur;
+		jobID = aJob.jobID;
 	}
 	return *this;
 }

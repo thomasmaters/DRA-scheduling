@@ -16,9 +16,9 @@ class Job
 public:
 	Job();
 	Job(vector<pair<long, long>> Job);
-	Job(const Task& aTask);
+	Job(const Job& aJob);
 	virtual ~Job();
-	Job& operator=(const Task& aTask);
+	Job& operator=(const Job& aJob);
 
 private:
 	unsigned long machine;
