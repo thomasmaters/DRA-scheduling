@@ -65,12 +65,12 @@ bool Job::isEmpty()
 	return tasks.empty();
 }
 
-Job& Job::operator [](int idx)
+Task& Job::operator [](int idx)
 {
-	return tasks[idx];
+	return tasks.at(idx);
 }
 
-const Job& Job::operator [](int idx) const
+const Task& Job::operator [](int idx) const
 {
 	return tasks[idx];
 }

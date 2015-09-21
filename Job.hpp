@@ -20,8 +20,8 @@ public:
 	Job(const Job& aJob);
 	virtual ~Job();
 	Job& operator=(const Job& aJob);
-	Job& operator[](int idx);
-	const Job& operator[](int idx) const;
+	Task& operator[](int idx);
+	const Task& operator[](int idx) const;
 	void reCalculate();
 	bool isEmpty();
 	unsigned long getTotalTime() const;
