@@ -45,13 +45,9 @@ string JobShop::readFile(const string fileName) const
 	{
 		getline (myfile,line);
 
-
-	   // string test = "test replacing \"these characters\"";
-	   // regex reg("[^\\w]+");
-	    //test = regex_replace(test, reg, "_");
-	   // cout << test << endl;
 		while ( getline (myfile,line) )
 		{
+			vector<pair<long,long>> v;
 			regex reg("([0-9]*[0-9])");
 
 		    std::smatch match;
@@ -65,11 +61,11 @@ string JobShop::readFile(const string fileName) const
 		    	long int b = atoi(match2.c_str());
 		    	line = match.suffix().str();
 
-		    	vector<pair<long,long>> v;
+
 		    	v.push_back(make_pair(a,b));
-		    	Job j(v);
 		    	//cout << line << endl;
 		    }
+		    Job j(v);
 			cout << line << '\n';
 		}
 		myfile.close();
@@ -77,6 +73,8 @@ string JobShop::readFile(const string fileName) const
 		cout << "No file found, check your path and try again.." << endl;
 		readFile(readFromConsole());
 	}
+	cout << "File has been read successfully!" << endl;
+	readFile(readFromConsole());
 	return fileName;
 }
 
