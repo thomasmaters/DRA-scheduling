@@ -79,8 +79,3 @@ unsigned long Job::getTotalTime() const
 {
 	return totalTime;
 }
-
-const vector<Task>& Job::getTasks() const
-{
-	return tasks;
-}
