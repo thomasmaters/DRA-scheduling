@@ -15,6 +15,8 @@ Task::Task()
 	machine = 0;
 	tijdsduur = 0;
 	jobID = 0;
+	startTime= 0;
+	endTime = 0;
 	cout << "Niet de default constructor aanroepen" << endl;
 }
 
@@ -25,7 +27,7 @@ Task::Task(unsigned long machine, unsigned long tijdsduur, unsigned long jobID) 
 }
 
 Task::Task(const Task& aTask) :
-		machine(aTask.machine), tijdsduur(aTask.tijdsduur), jobID(aTask.jobID)
+		machine(aTask.machine), tijdsduur(aTask.tijdsduur), jobID(aTask.jobID), startTime(aTask.startTime), endTime(aTask.endTime)
 {
 }
 
@@ -48,4 +50,14 @@ Task& Task::operator=(const Task& aTask)
 unsigned long Task::getTijdsduur() const
 {
 	return tijdsduur;
+}
+
+unsigned long Task::getEndTime() const
+{
+	return endTime;
+}
+
+unsigned long Task::getStartTime() const
+{
+	return startTime;
 }

@@ -16,8 +16,6 @@ using namespace std;
 
 Job::Job()
 {
-	machine = 0;
-	tijdsduur = 0;
 	jobID = 0;
 	totalTime = 0;
 	cout << "Niet de default constructor aanroepen" << endl;
@@ -27,8 +25,8 @@ Job::Job(vector<pair<long, long>> Job)
 {
 	for (unsigned long i = 0; i < Job.size(); ++i)
 	{
-		machine = Job[i].first;
-		tijdsduur = Job[i].second;
+		unsigned long machine = Job[i].first;
+		unsigned long tijdsduur = Job[i].second;
 		jobID = i;
 		tasks.push_back(Task(machine, tijdsduur, jobID));
 		totalTime += tijdsduur;
@@ -36,8 +34,7 @@ Job::Job(vector<pair<long, long>> Job)
 }
 
 Job::Job(const Job& aJob) :
-		machine(aJob.machine), tijdsduur(aJob.tijdsduur), jobID(aJob.jobID), totalTime(
-				aJob.totalTime)
+		jobID(aJob.jobID), totalTime(aJob.totalTime)
 {
 }
 
@@ -45,8 +42,6 @@ Job& Job::operator=(const Job& aJob)
 {
 	if (this != &aJob)
 	{
-		machine = aJob.machine;
-		tijdsduur = aJob.tijdsduur;
 		jobID = aJob.jobID;
 		totalTime = aJob.totalTime;
 	}
@@ -67,4 +62,9 @@ void Job::reCalculate()
 bool Job::isEmpty()
 {
 	return tasks.empty();
+}
+
+unsigned long Job::getTotalTime() const
+{
+	return totalTime;
 }

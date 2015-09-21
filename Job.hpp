@@ -22,10 +22,9 @@ public:
 	Job& operator=(const Job& aJob);
 	void reCalculate();
 	bool isEmpty();
+	unsigned long getTotalTime() const;
 
 private:
-	unsigned long machine;
-	unsigned long tijdsduur;
 	unsigned long jobID;
 	unsigned long totalTime;
 	vector<Task> tasks;

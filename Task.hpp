@@ -17,11 +17,15 @@ public:
 	virtual ~Task();
 	Task& operator=(const Task& aTask);
 	unsigned long getTijdsduur() const;
+	unsigned long getEndTime() const;
+	unsigned long getStartTime() const;
 
 private:
 	unsigned long machine;
 	unsigned long tijdsduur;
 	unsigned long jobID;
+	unsigned long startTime;
+	unsigned long endTime;
 };
 
 #endif /* TASK_HPP_ */
