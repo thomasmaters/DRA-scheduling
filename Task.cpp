@@ -66,3 +66,9 @@ unsigned long Task::getMachine() const
 {
 	return machine;
 }
+
+void Task::startTask(unsigned long startTijd)
+{
+	startTime = startTijd;
+	endTime = startTime + tijdsduur;
+}

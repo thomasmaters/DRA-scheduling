@@ -16,6 +16,7 @@ public:
 	Task(const Task& aTask);
 	virtual ~Task();
 	Task& operator=(const Task& aTask);
+	void startTask(unsigned long startTijd);
 	unsigned long getTijdsduur() const;
 	unsigned long getEndTime() const;
 	unsigned long getStartTime() const;
