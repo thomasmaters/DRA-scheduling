@@ -9,6 +9,7 @@
 #define JOBSHOP_HPP_
 #include <string>
 #include <vector>
+#include "Job.hpp"
 using namespace std;
 
 class JobShop
@@ -24,7 +25,7 @@ public:
 private:
 	static long int job_count;
 	static long int machine_count;
-	vector<vector<pair<long,long>>> Jobs;
+	vector< Job > Jobs;
 };
 
 #endif /* JOBSHOP_HPP_ */

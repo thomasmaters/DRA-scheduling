@@ -17,7 +17,6 @@ using namespace std;
 
 JobShop::JobShop()
 {
-	vector<vector<pair<long,long>>> Jobs;
 	cout << "Input jobs file path." << endl;
 	readFile(readFromConsole());
 }
@@ -61,11 +60,11 @@ string JobShop::readFile(const string fileName) const
 		    	long int b = atoi(match2.c_str());
 		    	line = match.suffix().str();
 
-
 		    	v.push_back(make_pair(a,b));
 		    	//cout << line << endl;
 		    }
 		    Job j(v);
+		    Jobs.push_back(j);
 			cout << line << '\n';
 		}
 		myfile.close();
