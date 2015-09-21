@@ -23,6 +23,9 @@ public:
 
 	virtual ~JobShop();
 private:
+	bool checkForJobs();
+	void calculate();
+
 	static long int job_count;
 	static long int machine_count;
 	vector< Job > Jobs;
