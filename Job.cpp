@@ -36,7 +36,8 @@ Job::Job(vector<pair<long, long>> Job)
 }
 
 Job::Job(const Job& aJob) :
-		machine(aJob.machine), tijdsduur(aJob.tijdsduur), jobID(aJob.jobID), totalTime(aJob.totalTime)
+		machine(aJob.machine), tijdsduur(aJob.tijdsduur), jobID(aJob.jobID), totalTime(
+				aJob.totalTime)
 {
 }
 
@@ -61,4 +62,9 @@ void Job::reCalculate()
 {
 	totalTime -= tasks[0].getTijdsduur();
 	tasks.erase(tasks.begin());
+}
+
+bool Job::isEmpty()
+{
+	return tasks.empty();
 }

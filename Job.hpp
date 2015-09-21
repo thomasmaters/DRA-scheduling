@@ -21,13 +21,14 @@ public:
 	virtual ~Job();
 	Job& operator=(const Job& aJob);
 	void reCalculate();
+	bool isEmpty();
 
 private:
 	unsigned long machine;
 	unsigned long tijdsduur;
 	unsigned long jobID;
 	unsigned long totalTime;
-	vector <Task> tasks;
+	vector<Task> tasks;
 };
 
 #endif /* JOB_HPP_ */
