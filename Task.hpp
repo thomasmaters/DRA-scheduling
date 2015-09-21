@@ -16,6 +16,7 @@ public:
 	Task(const Task& aTask);
 	virtual ~Task();
 	Task& operator=(const Task& aTask);
+	unsigned long getTijdsduur() const;
 
 private:
 	unsigned long machine;

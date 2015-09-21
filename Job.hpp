@@ -20,11 +20,13 @@ public:
 	Job(const Job& aJob);
 	virtual ~Job();
 	Job& operator=(const Job& aJob);
+	void reCalculate();
 
 private:
 	unsigned long machine;
 	unsigned long tijdsduur;
 	unsigned long jobID;
+	unsigned long totalTime;
 	vector <Task> tasks;
 };
 

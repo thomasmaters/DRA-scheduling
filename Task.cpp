@@ -45,3 +45,7 @@ Task& Task::operator=(const Task& aTask)
 	return *this;
 }
 
+unsigned long Task::getTijdsduur() const
+{
+	return tijdsduur;
+}

@@ -19,6 +19,7 @@ Job::Job()
 	machine = 0;
 	tijdsduur = 0;
 	jobID = 0;
+	totalTime = 0;
 	cout << "Niet de default constructor aanroepen" << endl;
 }
 
@@ -30,11 +31,12 @@ Job::Job(vector<pair<long, long>> Job)
 		tijdsduur = Job[i].second;
 		jobID = i;
 		tasks.push_back(Task(machine, tijdsduur, jobID));
+		totalTime += tijdsduur;
 	}
 }
 
 Job::Job(const Job& aJob) :
-		machine(aJob.machine), tijdsduur(aJob.tijdsduur), jobID(aJob.jobID)
+		machine(aJob.machine), tijdsduur(aJob.tijdsduur), jobID(aJob.jobID), totalTime(aJob.totalTime)
 {
 }
 
@@ -45,6 +47,7 @@ Job& Job::operator=(const Job& aJob)
 		machine = aJob.machine;
 		tijdsduur = aJob.tijdsduur;
 		jobID = aJob.jobID;
+		totalTime = aJob.totalTime;
 	}
 	return *this;
 }
@@ -52,4 +55,10 @@ Job& Job::operator=(const Job& aJob)
 Job::~Job()
 {
 	// TODO Auto-generated destructor stub
+}
+
+void Job::reCalculate()
+{
+	totalTime -= tasks[0].getTijdsduur();
+	tasks.erase(tasks.begin());
 }
