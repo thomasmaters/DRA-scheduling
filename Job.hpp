@@ -16,10 +16,13 @@ class Job
 public:
 	Job();
 	Job(vector<pair<long, long>> Job);
-	Job(Job& aJob);
+	Job(const Task& aTask);
 	virtual ~Job();
+	Job& operator=(const Task& aTask);
 
 private:
+	unsigned long machine;
+	unsigned long tijdsduur;
 	unsigned long jobID;
 };
 
