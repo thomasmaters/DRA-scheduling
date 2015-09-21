@@ -75,51 +75,71 @@ string JobShop::readFile(const string fileName)
 		cout << "No file found, check your path and try again.." << endl;
 		readFile(readFromConsole());
 	}
+	calculate();
 	cout << "File has been read successfully!" << endl;
 	readFile(readFromConsole());
 	return fileName;
 }
 
-void JobShop::calculate(){
+void JobShop::calculate()
+{
 	unsigned long minuten = 0;
 	vector<bool> machines(6);
 
-	while(checkForJobs()){
-		for (auto i = 0; i < 6; ++i) {
-			if(machines[i]){ //machine is bezig
-				for(auto & job : Jobs){
-					if(job[0].getEndTime() == minuten){
+	while (checkForJobs())
+	{
+		for (auto i = 0; i < 6; ++i)
+		{
+			if (machines[i])
+			{ //machine is bezig
+				for (auto & job : Jobs)
+				{
+					if (job[0].getEndTime() == minuten)
+					{
 						job.reCalculate();
 						machines[i] = false;
 					}
 				}
 			}
 		}
-		sort(Jobs.begin(), Jobs.end(),
-		    [](const Job & a, const Job & b) -> bool
+
+		sort(Jobs.begin(), Jobs.end(), [](const Job & a, const Job & b) -> bool
 		{
-		    return a.getTotalTime() > b.getTotalTime();
+			return a.getTotalTime() > b.getTotalTime();
 		});
-		for(auto & job : Jobs){
-			//if(job[0].machine)
+
+		for (unsigned long i = 0; i < 6; ++i)
+		{
+			if (!machines[i])
+			{
+				for (auto & job : Jobs)
+				{
+					if (job[0].getMachine() != i)
+					{
+						job[0].startTask(minuten);
+						machines[i] = true;
+						break;
+					}
+				}
+			}
 		}
-		++minuten;
+			++minuten;
+		}
 	}
-}
 
-
-
-bool JobShop::checkForJobs()
-{
-	for (auto & job : Jobs) {
-	    if(!job.isEmpty()){
-	    	return true;
-	    }
+	bool JobShop::checkForJobs()
+	{
+		for (auto & job : Jobs)
+		{
+			if(!job.isEmpty())
+			{
+				return true;
+			}
+		}
+		return false;
 	}
-	return false;
-}
 
-JobShop::~JobShop()
-{
-	// TODO Auto-generated destructor stub
-}
+	JobShop::~JobShop()
+	{
+		// TODO Auto-generated destructor stub
+	}
