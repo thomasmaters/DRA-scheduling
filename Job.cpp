@@ -6,7 +6,6 @@
  */
 
 #include "Job.hpp"
-#include "Task.hpp"
 #include <vector>
 #include <iostream>
 using namespace std;
@@ -14,11 +13,6 @@ using namespace std;
 //Hier komt een vector binnen met <2>,<1> vector[0].first, vector[0].second.
 //Voor elke pair een task aanmaken
 //Geef elke Job een ID.
-
-unsigned long machine = 0;
-unsigned long tijdsduur = 0;
-unsigned long jobID = 0;
-vector <Task> tasks;
 
 Job::Job()
 {

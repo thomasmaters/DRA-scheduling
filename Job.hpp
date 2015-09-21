@@ -9,6 +9,7 @@
 #define JOB_HPP_
 #include <iostream>
 #include <vector>
+#include "Task.hpp"
 using namespace std;
 
 class Job
@@ -24,6 +25,7 @@ private:
 	unsigned long machine;
 	unsigned long tijdsduur;
 	unsigned long jobID;
+	vector <Task> tasks;
 };
 
 #endif /* JOB_HPP_ */
