@@ -25,6 +25,7 @@ public:
 	void reCalculate();
 	bool isEmpty();
 	unsigned long getTotalTime() const;
+	const vector<Task>& getTasks() const;
 
 private:
 	unsigned long jobID;
