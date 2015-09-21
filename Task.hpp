@@ -19,6 +19,7 @@ public:
 	unsigned long getTijdsduur() const;
 	unsigned long getEndTime() const;
 	unsigned long getStartTime() const;
+	unsigned long getMachine() const;
 
 private:
 	unsigned long machine;

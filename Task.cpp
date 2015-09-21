@@ -61,3 +61,8 @@ unsigned long Task::getStartTime() const
 {
 	return startTime;
 }
+
+unsigned long Task::getMachine() const
+{
+	return machine;
+}
