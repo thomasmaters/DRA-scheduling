@@ -15,6 +15,8 @@
 #include <regex>
 using namespace std;
 
+vector< Job > Jobs;
+
 JobShop::JobShop()
 {
 	cout << "Input jobs file path." << endl;
@@ -23,7 +25,6 @@ JobShop::JobShop()
 
 JobShop::JobShop(const JobShop &JS)
 {
-	*this = JS;
 }
 
 
@@ -34,7 +35,7 @@ string JobShop::readFromConsole() const
 	return input_string;
 }
 //C:\Users\thomas\Desktop\test.txt
-string JobShop::readFile(const string fileName) const
+string JobShop::readFile(const string fileName)
 {
 	string line;
 	string output;
@@ -61,7 +62,6 @@ string JobShop::readFile(const string fileName) const
 		    	line = match.suffix().str();
 
 		    	v.push_back(make_pair(a,b));
-		    	//cout << line << endl;
 		    }
 		    Job j(v);
 		    Jobs.push_back(j);

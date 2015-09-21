@@ -19,7 +19,7 @@ public:
 	JobShop(const JobShop &JS);
 
 	string readFromConsole() const;
-	string readFile(const string fileName) const;
+	string readFile(const string fileName);
 
 	virtual ~JobShop();
 private:
