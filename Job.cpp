@@ -84,6 +84,5 @@ unsigned long Job::getTotalTime() const
 
 unsigned long Job::getMachine() const
 {
-	cout << "machine is in job :" << tasks[0].getMachine();
 	return tasks[0].getMachine();
 }

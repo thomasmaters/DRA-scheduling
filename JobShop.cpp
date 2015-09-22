@@ -74,7 +74,7 @@ string JobShop::readFile(const string fileName)
 		cout << "No file found, check your path and try again.." << endl;
 		readFile(readFromConsole());
 	}
-	cout << Jobs.size() << endl;
+	cout << "jobsize :" << Jobs.size() << endl;
 	calculate();
 
 	//readFile(readFromConsole());
@@ -105,25 +105,18 @@ void JobShop::calculate()
 				}
 			}
 		}
-		//cout << "start sorteren jobs lijst" << endl;
+
 		sort(Jobs.begin(), Jobs.end(), [](const Job & a, const Job & b) -> bool
 		{
 			return a.getTotalTime() > b.getTotalTime();
 		});
-		//cout << "einde sorteren jobs lijst" << endl;
 
 		for (unsigned long i = 0; i < 6; ++i)
 		{
-			//cout << "machine loop" << endl;
 			if (!machines[i])
 			{
-				//cout << "machine check" << endl;
 				for (auto & job : Jobs)
 				{
-					//cout << "Jobs loop" << endl;
-					//cout << "i = " << i << endl;
-					cout << job.getMachine() << endl;
-
 					if (job.getMachine() == i)
 					{
 						cout << "Jobs machine check" << endl;
@@ -144,7 +137,7 @@ void JobShop::calculate()
 		for (auto & job : Jobs)
 		{
 			cout << job.isEmpty() ;
-			if(job.isEmpty() == false)
+			if(!job.isEmpty())
 			{
 				return true;
 			}
