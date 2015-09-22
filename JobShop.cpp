@@ -87,7 +87,7 @@ void JobShop::calculate()
 	unsigned long minuten = 0;
 	vector<bool> machines(6);
 
-	while (checkForJobs() == true)
+	while (checkForJobs())
 	{
 		cout<< "found job" << endl;
 		for (auto i = 0; i < 6; ++i)
@@ -105,23 +105,23 @@ void JobShop::calculate()
 				}
 			}
 		}
-		cout << "start sorteren jobs lijst" << endl;
+		//cout << "start sorteren jobs lijst" << endl;
 		sort(Jobs.begin(), Jobs.end(), [](const Job & a, const Job & b) -> bool
 		{
 			return a.getTotalTime() > b.getTotalTime();
 		});
-		cout << "einde sorteren jobs lijst" << endl;
+		//cout << "einde sorteren jobs lijst" << endl;
 
 		for (unsigned long i = 0; i < 6; ++i)
 		{
-			cout << "machine loop" << endl;
+			//cout << "machine loop" << endl;
 			if (!machines[i])
 			{
-				cout << "machine check" << endl;
+				//cout << "machine check" << endl;
 				for (auto & job : Jobs)
 				{
-					cout << "Jobs loop" << endl;
-					cout << "i = " << i << endl;
+					//cout << "Jobs loop" << endl;
+					//cout << "i = " << i << endl;
 					cout << job.getMachine() << endl;
 
 					if (job.getMachine() == i)
@@ -146,10 +146,10 @@ void JobShop::calculate()
 			cout << job.isEmpty() ;
 			if(job.isEmpty() == false)
 			{
-				return false;
+				return true;
 			}
 		}
-		return true;
+		return false;
 	}
 
 	JobShop::~JobShop()

@@ -36,12 +36,12 @@ Job::Job(vector<pair<long, long>> Job)
 Job::Job(const Job& aJob) :
 		jobID(aJob.jobID), totalTime(aJob.totalTime), tasks(aJob.tasks)
 {
-	cout << "copy job" << endl;
+	//cout << "copy job" << endl;
 }
 
 Job::~Job()
 {
-	cout << "job is weg" << endl;
+	//cout << "job is weg" << endl;
 	// TODO Auto-generated destructor stub
 }
 
