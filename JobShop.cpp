@@ -89,17 +89,18 @@ void JobShop::calculate()
 
 	while (checkForJobs())
 	{
+		cout << minuten << endl;
 		for (auto i = 0; i < 6; ++i)
 		{//loop door machines
-			if (machines[i] == true)
+			if (machines[i])
 			{ //is machine bezig?
 				for (auto & job : Jobs)
 				{ // ga alle jobs langs
-					if (job[0].getEndTime() == minuten && job[0].getEndTime() != 0)
+					if (job[0].getEndTime() == minuten)
 					{ //controlleer eind tijd of task gestopt moet worden
 						cout << "task verwijd op:" << minuten << "     ";
-						job.reCalculate();   //verwijder task uit job
 						machines[i] = false; //zet machine beschikbaar
+						job.reCalculate();   //verwijder task uit job
 					}
 				}
 			}
@@ -116,7 +117,7 @@ void JobShop::calculate()
 			{
 				for (auto & job : Jobs)
 				{
-					if (job.getMachine() == i)
+					if (job.getMachine() == i && job[0].getEndTime() == 0)
 					{
 						cout << "task gestart op:" << minuten << "     ";
 						job[0].startTask(minuten);
@@ -127,6 +128,9 @@ void JobShop::calculate()
 			}
 		}
 			++minuten;
+			if(minuten > 100){
+				break;
+			}
 		}
 	}
 

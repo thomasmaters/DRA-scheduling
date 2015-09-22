@@ -79,5 +79,5 @@ void Task::startTask(unsigned long startTijd)
 {
 	startTime = startTijd;
 	endTime = startTime + tijdsduur;
-	cout << machine << " " << tijdsduur << endl;
+	cout << machine << " " << tijdsduur << " " << endTime <<endl;
 }

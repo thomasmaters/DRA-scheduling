@@ -59,8 +59,8 @@ void Job::reCalculate()
 {
 	cout << tasks[0].getMachine() << " " << tasks[0].getTijdsduur() << endl;
 	totalTime -= tasks[0].getTijdsduur();
-	tasks.erase(tasks.begin());
 
+	tasks.erase(tasks.begin());
 }
 
 bool Job::isEmpty()
