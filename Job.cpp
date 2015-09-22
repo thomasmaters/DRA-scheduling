@@ -36,12 +36,10 @@ Job::Job(vector<pair<long, long>> Job)
 Job::Job(const Job& aJob) :
 		jobID(aJob.jobID), totalTime(aJob.totalTime), tasks(aJob.tasks)
 {
-	//cout << "copy job" << endl;
 }
 
 Job::~Job()
 {
-	//cout << "job is weg" << endl;
 	// TODO Auto-generated destructor stub
 }
 
@@ -51,6 +49,7 @@ Job& Job::operator=(const Job& aJob)
 	{
 		jobID = aJob.jobID;
 		totalTime = aJob.totalTime;
+		tasks = aJob.tasks;
 	}
 	return *this;
 }
@@ -58,8 +57,10 @@ Job& Job::operator=(const Job& aJob)
 
 void Job::reCalculate()
 {
+	cout << tasks[0].getMachine() << " " << tasks[0].getTijdsduur() << endl;
 	totalTime -= tasks[0].getTijdsduur();
 	tasks.erase(tasks.begin());
+
 }
 
 bool Job::isEmpty()

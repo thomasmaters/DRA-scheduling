@@ -38,6 +38,7 @@ Task::Task(const Task& aTask) :
 
 Task::~Task()
 {
+	//cout << machine << " " << tijdsduur << endl;
 	--counter;
 }
 
@@ -71,7 +72,6 @@ unsigned long Task::getStartTime() const
 
 unsigned long Task::getMachine() const
 {
-	cout << "getmachine in task     " << counter << endl;
 	return machine;
 }
 
@@ -79,4 +79,5 @@ void Task::startTask(unsigned long startTijd)
 {
 	startTime = startTijd;
 	endTime = startTime + tijdsduur;
+	cout << machine << " " << tijdsduur << endl;
 }

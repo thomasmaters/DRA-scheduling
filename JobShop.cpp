@@ -20,7 +20,7 @@ vector<Job> Jobs;
 JobShop::JobShop()
 {
 	cout << "Input jobs file path." << endl;
-	readFile(readFromConsole());
+	readFile("C:\\Users\\thomas\\Desktop\\test2.txt");
 }
 
 JobShop::JobShop(const JobShop &JS)
@@ -89,18 +89,17 @@ void JobShop::calculate()
 
 	while (checkForJobs())
 	{
-		cout<< "found job" << endl;
 		for (auto i = 0; i < 6; ++i)
-		{
-			if (machines[i])
-			{ //machine is bezig
+		{//loop door machines
+			if (machines[i] == true)
+			{ //is machine bezig?
 				for (auto & job : Jobs)
-				{
-					if (job[0].getEndTime() == minuten && minuten != 0)
-					{
-						cout << "recalculating" << endl;
-						job.reCalculate();
-						machines[i] = false;
+				{ // ga alle jobs langs
+					if (job[0].getEndTime() == minuten && job[0].getEndTime() != 0)
+					{ //controlleer eind tijd of task gestopt moet worden
+						cout << "task verwijd op:" << minuten << "     ";
+						job.reCalculate();   //verwijder task uit job
+						machines[i] = false; //zet machine beschikbaar
 					}
 				}
 			}
@@ -108,7 +107,7 @@ void JobShop::calculate()
 
 		sort(Jobs.begin(), Jobs.end(), [](const Job & a, const Job & b) -> bool
 		{
-			return a.getTotalTime() > b.getTotalTime();
+			return a.getTotalTime() < b.getTotalTime();
 		});
 
 		for (unsigned long i = 0; i < 6; ++i)
@@ -119,8 +118,7 @@ void JobShop::calculate()
 				{
 					if (job.getMachine() == i)
 					{
-						cout << "Jobs machine check" << endl;
-						cout<< "total  time:" <<job.getTotalTime() << endl;
+						cout << "task gestart op:" << minuten << "     ";
 						job[0].startTask(minuten);
 						machines[i] = true;
 						break;
@@ -136,7 +134,6 @@ void JobShop::calculate()
 	{
 		for (auto & job : Jobs)
 		{
-			cout << job.isEmpty() ;
 			if(!job.isEmpty())
 			{
 				return true;
