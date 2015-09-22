@@ -74,8 +74,9 @@ string JobShop::readFile(const string fileName)
 		cout << "No file found, check your path and try again.." << endl;
 		readFile(readFromConsole());
 	}
-	calculate();
 	cout << Jobs.size() << endl;
+	calculate();
+
 	//readFile(readFromConsole());
 	return fileName;
 }
@@ -95,7 +96,7 @@ void JobShop::calculate()
 			{ //machine is bezig
 				for (auto & job : Jobs)
 				{
-					if (job[0].getEndTime() == minuten)
+					if (job[0].getEndTime() == minuten && minuten != 0)
 					{
 						cout << "recalculating" << endl;
 						job.reCalculate();

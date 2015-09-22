@@ -8,6 +8,7 @@
 #include "Task.hpp"
 #include<iostream>
 using namespace std;
+unsigned long Task::counter = 0;
 //Krijgt Jobs binnen en doet er nog niks mee. Doe maar even couten
 
 Task::Task()
@@ -23,19 +24,23 @@ Task::Task()
 Task::Task(unsigned long machine, unsigned long tijdsduur, unsigned long jobID) :
 		machine(machine), tijdsduur(tijdsduur), jobID(jobID)
 {
+	++counter;
 	startTime = 0;
 	endTime = 0;
-	cout << machine << " " << tijdsduur << " " << jobID << endl;
+	cout << machine << " " << tijdsduur << " " << jobID << " " << startTime << " " << endTime << endl;
 }
 
 Task::Task(const Task& aTask) :
 		machine(aTask.machine), tijdsduur(aTask.tijdsduur), jobID(aTask.jobID), startTime(aTask.startTime), endTime(aTask.endTime)
 {
+	cout << "Copy task" << endl;
+	++counter;
 }
 
 Task::~Task()
 {
-	// TODO Auto-generated destructor stub
+	--counter;
+	cout << "task is weg" << endl;
 }
 
 Task& Task::operator=(const Task& aTask)
@@ -45,6 +50,8 @@ Task& Task::operator=(const Task& aTask)
 		machine = aTask.machine;
 		tijdsduur = aTask.tijdsduur;
 		jobID = aTask.jobID;
+		startTime = aTask.startTime;
+		endTime = aTask.endTime;
 	}
 	return *this;
 }
@@ -66,7 +73,7 @@ unsigned long Task::getStartTime() const
 
 unsigned long Task::getMachine() const
 {
-	cout << "getmachine in task     " << machine << endl;
+	cout << "getmachine in task     " << counter << endl;
 	return machine;
 }
 

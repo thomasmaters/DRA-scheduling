@@ -28,6 +28,8 @@ private:
 	unsigned long jobID;
 	unsigned long startTime;
 	unsigned long endTime;
+	static unsigned long counter;
 };
+
 
 #endif /* TASK_HPP_ */
