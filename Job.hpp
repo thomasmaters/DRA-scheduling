@@ -25,6 +25,7 @@ public:
 	void reCalculate();
 	bool isEmpty();
 	unsigned long getTotalTime() const;
+	unsigned long getMachine() const;
 
 private:
 	unsigned long jobID;

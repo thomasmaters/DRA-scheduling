@@ -19,7 +19,6 @@ vector<Job> Jobs;
 
 JobShop::JobShop()
 {
-	calculate();
 	cout << "Input jobs file path." << endl;
 	readFile(readFromConsole());
 }
@@ -34,7 +33,7 @@ string JobShop::readFromConsole() const
 	cin >> input_string;
 	return input_string;
 }
-//C:\Users\thomas\Desktop\test.txt
+//C:\Users\thomas\Desktop\test2.txt
 string JobShop::readFile(const string fileName)
 {
 	string line;
@@ -76,18 +75,20 @@ string JobShop::readFile(const string fileName)
 		readFile(readFromConsole());
 	}
 	calculate();
-	cout << "File has been read successfully!" << endl;
-	readFile(readFromConsole());
+	cout << Jobs.size() << endl;
+	//readFile(readFromConsole());
 	return fileName;
 }
 
 void JobShop::calculate()
 {
+	cout << "start berekening" << endl;
 	unsigned long minuten = 0;
 	vector<bool> machines(6);
 
-	while (checkForJobs())
+	while (checkForJobs() == true)
 	{
+		cout<< "found job" << endl;
 		for (auto i = 0; i < 6; ++i)
 		{
 			if (machines[i])
@@ -96,26 +97,36 @@ void JobShop::calculate()
 				{
 					if (job[0].getEndTime() == minuten)
 					{
+						cout << "recalculating" << endl;
 						job.reCalculate();
 						machines[i] = false;
 					}
 				}
 			}
 		}
-
+		cout << "start sorteren jobs lijst" << endl;
 		sort(Jobs.begin(), Jobs.end(), [](const Job & a, const Job & b) -> bool
 		{
 			return a.getTotalTime() > b.getTotalTime();
 		});
+		cout << "einde sorteren jobs lijst" << endl;
 
 		for (unsigned long i = 0; i < 6; ++i)
 		{
+			cout << "machine loop" << endl;
 			if (!machines[i])
 			{
+				cout << "machine check" << endl;
 				for (auto & job : Jobs)
 				{
-					if (job[0].getMachine() != i)
+					cout << "Jobs loop" << endl;
+					cout << "i = " << i << endl;
+					cout << job.getMachine() << endl;
+
+					if (job.getMachine() == i)
 					{
+						cout << "Jobs machine check" << endl;
+						cout<< "total  time:" <<job.getTotalTime() << endl;
 						job[0].startTask(minuten);
 						machines[i] = true;
 						break;
@@ -131,12 +142,13 @@ void JobShop::calculate()
 	{
 		for (auto & job : Jobs)
 		{
-			if(!job.isEmpty())
+			cout << job.isEmpty() ;
+			if(job.isEmpty() == false)
 			{
-				return true;
+				return false;
 			}
 		}
-		return false;
+		return true;
 	}
 
 	JobShop::~JobShop()

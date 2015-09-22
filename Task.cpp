@@ -23,6 +23,8 @@ Task::Task()
 Task::Task(unsigned long machine, unsigned long tijdsduur, unsigned long jobID) :
 		machine(machine), tijdsduur(tijdsduur), jobID(jobID)
 {
+	startTime = 0;
+	endTime = 0;
 	cout << machine << " " << tijdsduur << " " << jobID << endl;
 }
 
@@ -64,6 +66,7 @@ unsigned long Task::getStartTime() const
 
 unsigned long Task::getMachine() const
 {
+	cout << "getmachine in task     " << machine << endl;
 	return machine;
 }
 
