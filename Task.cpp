@@ -33,14 +33,14 @@ Task::Task(unsigned long machine, unsigned long tijdsduur, unsigned long jobID) 
 Task::Task(const Task& aTask) :
 		machine(aTask.machine), tijdsduur(aTask.tijdsduur), jobID(aTask.jobID), startTime(aTask.startTime), endTime(aTask.endTime)
 {
-	cout << "Copy task" << endl;
+	cout << "Copy task" << counter << endl;
 	++counter;
 }
 
 Task::~Task()
 {
 	--counter;
-	cout << "task is weg" << endl;
+	cout << "task is weg" << counter << endl;
 }
 
 Task& Task::operator=(const Task& aTask)

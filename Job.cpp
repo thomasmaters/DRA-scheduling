@@ -34,7 +34,7 @@ Job::Job(vector<pair<long, long>> Job)
 }
 
 Job::Job(const Job& aJob) :
-		jobID(aJob.jobID), totalTime(aJob.totalTime)
+		jobID(aJob.jobID), totalTime(aJob.totalTime), tasks(aJob.tasks)
 {
 	cout << "copy job" << endl;
 }
