@@ -16,6 +16,7 @@
 using namespace std;
 
 vector<Job> Jobs;
+vector<bool> machines(6);
 
 JobShop::JobShop()
 {
@@ -85,48 +86,31 @@ void JobShop::calculate()
 {
 	cout << "start berekening" << endl;
 	unsigned long minuten = 0;
-	vector<bool> machines(6);
 
 	while (checkForJobs())
 	{
-		cout << minuten << endl;
 		for (auto i = 0; i < 6; ++i)
 		{//loop door machines
-			if (machines[i])
+			if (machines[i] == 1)
 			{ //is machine bezig?
 				for (auto & job : Jobs)
 				{ // ga alle jobs langs
-					if (job[0].getEndTime() == minuten)
+					if (job[0].getEndTime() == minuten && job[0].getEndTime() != 0)
 					{ //controlleer eind tijd of task gestopt moet worden
-						cout << "task verwijd op:" << minuten << "     ";
-						machines[i] = false; //zet machine beschikbaar
+						cout << "task verwijd op:" << minuten << "     " << i << "   ";
+						machines[job[0].getMachine()] = false; //zet machine beschikbaar
 						job.reCalculate();   //verwijder task uit job
-					}
-				}
-			}
-		}
-
-		sort(Jobs.begin(), Jobs.end(), [](const Job & a, const Job & b) -> bool
-		{
-			return a.getTotalTime() < b.getTotalTime();
-		});
-
-		for (unsigned long i = 0; i < 6; ++i)
-		{
-			if (!machines[i])
-			{
-				for (auto & job : Jobs)
-				{
-					if (job.getMachine() == i && job[0].getEndTime() == 0)
-					{
-						cout << "task gestart op:" << minuten << "     ";
-						job[0].startTask(minuten);
-						machines[i] = true;
 						break;
 					}
 				}
 			}
 		}
+		sortJobs();
+		assignTasks(minuten);
+		for (unsigned long i = 0; i < 6; ++i){
+			cout << machines[i];
+		}
+		cout << endl;
 			++minuten;
 			if(minuten > 100){
 				break;
@@ -145,6 +129,35 @@ void JobShop::calculate()
 		}
 		return false;
 	}
+
+	void JobShop::sortJobs(){
+		sort(Jobs.begin(), Jobs.end(), [](const Job & a, const Job & b) -> bool
+		{
+			return a.getTotalTime() < b.getTotalTime();
+		});
+	}
+
+	void JobShop::assignTasks(unsigned long minuten){
+		sortJobs();
+		for (unsigned long i = 0; i < 6; ++i)
+			{
+				if (machines[i] == false)
+				{
+					for (auto & job : Jobs)
+					{
+						if (job.getMachine() == i && job[0].getEndTime() == 0)
+						{
+							cout << "task gestart op:" << minuten << "     ";
+							job[0].startTask(minuten);
+							machines[i] = true;
+							assignTasks(minuten);
+							break;
+						}
+					}
+				}
+			}
+	}
+
 
 	JobShop::~JobShop()
 	{

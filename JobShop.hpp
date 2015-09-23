@@ -25,6 +25,8 @@ public:
 private:
 	bool checkForJobs();
 	void calculate();
+	void sortJobs();
+	void assignTasks(unsigned long minuten);
 
 	static long int job_count;
 	static long int machine_count;
