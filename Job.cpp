@@ -70,18 +70,12 @@ bool Job::isEmpty()
 
 Task& Job::operator [](int idx)
 {
-	if (tasks.size() > 0){
-		return tasks[idx];
-	}
-	return std::cout << "out of bound" << std::endl;
+	return tasks.at(idx);
 }
 
 const Task& Job::operator [](int idx) const
 {
-	if (tasks.size() > 0){
-		return tasks[idx];
-	}
-	return std::cout << "out of bound" << std::endl;
+	return tasks[idx];
 }
 
 unsigned long Job::getTotalTime() const
@@ -92,4 +86,9 @@ unsigned long Job::getTotalTime() const
 unsigned long Job::getMachine() const
 {
 	return tasks[0].getMachine();
+}
+
+unsigned long Job::size() const
+{
+	return tasks.size();
 }

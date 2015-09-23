@@ -26,6 +26,7 @@ public:
 	bool isEmpty();
 	unsigned long getTotalTime() const;
 	unsigned long getMachine() const;
+	unsigned long size() const;
 
 private:
 	unsigned long jobID;
