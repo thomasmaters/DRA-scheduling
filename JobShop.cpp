@@ -95,7 +95,7 @@ void JobShop::calculate()
 			{ //is machine bezig?
 				for (auto & job : Jobs)
 				{ // ga alle jobs langs
-					if (job[0].getEndTime() == minuten && job[0].getEndTime() != 0)
+					if (job.size() > 0 && job[0].getEndTime() == minuten && job[0].getEndTime() != 0)
 					{ //controlleer eind tijd of task gestopt moet worden
 						cout << "task verwijd op:" << minuten << "     " << i << "   ";
 						machines[job[0].getMachine()] = false; //zet machine beschikbaar
@@ -140,16 +140,16 @@ void JobShop::calculate()
 	void JobShop::assignTasks(unsigned long minuten){
 		sortJobs();
 		for (unsigned long i = 0; i < 6; ++i)
-			{
+			{// loop throug machines
 				if (machines[i] == false)
-				{
+				{// machine not occupied
 					for (auto & job : Jobs)
-					{
-						if (job.getMachine() == i && job[0].getEndTime() == 0)
+					{// loop through jobs
+						if (job.size() > 0 && job.getMachine() == i && job[0].getEndTime() == 0)
 						{
 							cout << "task gestart op:" << minuten << "     ";
 							job[0].startTask(minuten);
-							machines[i] = true;
+							machines[job[0].getMachine()] = true;
 							assignTasks(minuten);
 							break;
 						}
