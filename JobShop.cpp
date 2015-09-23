@@ -97,7 +97,7 @@ void JobShop::calculate()
 				{ // ga alle jobs langs
 					if (job.size() > 0 && job[0].getEndTime() == minuten && job[0].getEndTime() != 0)
 					{ //controlleer eind tijd of task gestopt moet worden
-						cout << "task verwijd op:" << minuten << "     " << i << "   ";
+						cout << "task verwijd op:" << minuten << "     ";
 						machines[job[0].getMachine()] = false; //zet machine beschikbaar
 						job.reCalculate();   //verwijder task uit job
 						break;
@@ -107,12 +107,8 @@ void JobShop::calculate()
 		}
 		sortJobs();
 		assignTasks(minuten);
-		for (unsigned long i = 0; i < 6; ++i){
-			cout << machines[i];
-		}
-		cout << endl;
 			++minuten;
-			if(minuten > 100){
+			if(minuten > 5000){
 				break;
 			}
 		}
@@ -133,7 +129,7 @@ void JobShop::calculate()
 	void JobShop::sortJobs(){
 		sort(Jobs.begin(), Jobs.end(), [](const Job & a, const Job & b) -> bool
 		{
-			return a.getTotalTime() < b.getTotalTime();
+			return a.getTotalTime() > b.getTotalTime();
 		});
 	}
 
