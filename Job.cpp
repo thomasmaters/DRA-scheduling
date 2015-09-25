@@ -97,7 +97,7 @@ unsigned long Job::getMachine() const
 
 void Job::startTask(unsigned long startTijd)
 {
-	if (size() - 1 == 0)
+	if (tasks.size() - 1 == 0)
 	{
 		executionEndTime = startTijd + tasks[0].getTijdsduur();
 	}
