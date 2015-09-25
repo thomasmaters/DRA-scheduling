@@ -23,6 +23,7 @@ public:
 
 	virtual ~JobShop();
 private:
+	void generateOutput();
 	bool checkForJobs();
 	void calculate();
 	void sortJobs();

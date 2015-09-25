@@ -132,6 +132,7 @@ void JobShop::calculate()
 			break;
 		}
 	}
+	generateOutput();
 }
 
 bool JobShop::checkForJobs()
@@ -152,6 +153,17 @@ void JobShop::sortJobs()
 	{
 		return a.getTotalTime() > b.getTotalTime();
 	});
+}
+
+void JobShop::generateOutput()
+{
+	sort(Jobs.begin(), Jobs.end(), [](const Job & a, const Job & b) -> bool
+	{
+		return a.getJobId() > b.getJobId();
+	});
+	for (auto & job : Jobs){
+		cout << job.getJobId() << "  " << job.getExecutionStartTime() << "  " << job.getExecutionEndTime() << endl;
+	}
 }
 
 void JobShop::assignTasks(unsigned long minuten)

@@ -33,6 +33,18 @@ public:
 	unsigned long getMachine() const;
 	unsigned long size() const;
 
+	unsigned long getJobId() const;
+
+	signed long getExecutionEndTime() const
+	{
+		return executionEndTime;
+	}
+
+	signed long getExecutionStartTime() const
+	{
+		return executionStartTime;
+	}
+
 private:
 	unsigned long jobID;
 	unsigned long totalTime;

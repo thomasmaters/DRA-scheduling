@@ -108,3 +108,8 @@ unsigned long Job::size() const
 {
 	return tasks.size();
 }
+
+unsigned long Job::getJobId() const
+{
+	return jobID;
+}
