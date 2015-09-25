@@ -16,16 +16,19 @@
 using namespace std;
 
 vector<Job> Jobs;
-vector<bool> machines(6);
 
 JobShop::JobShop()
 {
+	job_count = 0;
+	machine_count = 0;
 	cout << "Input jobs file path." << endl;
 	readFile("C:\\Users\\thomas\\Desktop\\test2.txt");
 }
 
 JobShop::JobShop(const JobShop &JS)
 {
+	job_count = JS.job_count;
+	machine_count = JS.machine_count;
 }
 
 string JobShop::readFromConsole() const
@@ -43,12 +46,22 @@ string JobShop::readFile(const string fileName)
 
 	if (myfile.is_open())
 	{
+		std::smatch match;
+		regex reg("([0-9]*[0-9])");
+
 		getline(myfile, line);
+
+		regex_search(line, match, reg);
+		string match1(match[1]);
+		job_count = atoi(match1.c_str());
+
+		regex_search(line, match, reg);
+		string match2(match[1]);
+		machine_count = atoi(match2.c_str());
 
 		while (getline(myfile, line))
 		{
 			vector<pair<long, long>> v;
-			regex reg("([0-9]*[0-9])");
 
 			std::smatch match;
 			while (regex_search(line, match, reg))
@@ -75,10 +88,15 @@ string JobShop::readFile(const string fileName)
 		cout << "No file found, check your path and try again.." << endl;
 		readFile(readFromConsole());
 	}
+
+	for (auto i = 0; i < machine_count; ++i)
+	{
+		machines.push_back(false);
+	}
+
 	cout << "jobsize :" << Jobs.size() << endl;
 	calculate();
 
-	//readFile(readFromConsole());
 	return fileName;
 }
 
@@ -86,16 +104,17 @@ void JobShop::calculate()
 {
 	cout << "start berekening" << endl;
 	unsigned long minuten = 0;
-
+	cout << machines.size() << endl;
 	while (checkForJobs())
 	{
-		for (auto i = 0; i < 6; ++i)
-		{//loop door machines
-			if (machines[i] == 1)
+		for (auto machine : machines)
+		{ //loop door machines
+			if (machine)
 			{ //is machine bezig?
 				for (auto & job : Jobs)
 				{ // ga alle jobs langs
-					if (job.size() > 0 && job[0].getEndTime() == minuten && job[0].getEndTime() != 0)
+					if (job.size() > 0 && job[0].getEndTime() == minuten
+							&& job[0].getEndTime() != 0)
 					{ //controlleer eind tijd of task gestopt moet worden
 						cout << "task verwijd op:" << minuten << "     ";
 						machines[job[0].getMachine()] = false; //zet machine beschikbaar
@@ -107,55 +126,58 @@ void JobShop::calculate()
 		}
 		sortJobs();
 		assignTasks(minuten);
-			++minuten;
-			if(minuten > 5000){
-				break;
-			}
+		++minuten;
+		if (minuten > 5000)
+		{
+			break;
 		}
 	}
+}
 
-	bool JobShop::checkForJobs()
+bool JobShop::checkForJobs()
+{
+	for (auto & job : Jobs)
 	{
-		for (auto & job : Jobs)
+		if (!job.isEmpty())
 		{
-			if(!job.isEmpty())
-			{
-				return true;
-			}
+			return true;
 		}
-		return false;
 	}
+	return false;
+}
 
-	void JobShop::sortJobs(){
-		sort(Jobs.begin(), Jobs.end(), [](const Job & a, const Job & b) -> bool
-		{
-			return a.getTotalTime() > b.getTotalTime();
-		});
-	}
+void JobShop::sortJobs()
+{
+	sort(Jobs.begin(), Jobs.end(), [](const Job & a, const Job & b) -> bool
+	{
+		return a.getTotalTime() > b.getTotalTime();
+	});
+}
 
-	void JobShop::assignTasks(unsigned long minuten){
-		sortJobs();
-		for (unsigned long i = 0; i < 6; ++i)
-			{// loop throug machines
-				if (machines[i] == false)
-				{// machine not occupied
-					for (auto & job : Jobs)
-					{// loop through jobs
-						if (job.size() > 0 && job.getMachine() == i && job[0].getEndTime() == 0)
-						{
-							cout << "task gestart op:" << minuten << "     ";
-							job[0].startTask(minuten);
-							machines[job[0].getMachine()] = true;
-							assignTasks(minuten);
-							break;
-						}
-					}
+void JobShop::assignTasks(unsigned long minuten)
+{
+	sortJobs();
+	for (auto i = 0; i < signed(machine_count); ++i)
+	{   // loop throug machines
+		if (machines[i] == false)
+		{   // machine not occupied
+			for (auto & job : Jobs)
+			{   // loop through jobs
+				if (job.size() > 0 && signed(job.getMachine()) == i
+						&& job[0].getEndTime() == 0)
+				{
+					cout << "task gestart op:" << minuten << "     ";
+					job.startTask(minuten);
+					machines[job[0].getMachine()] = true;
+					assignTasks(minuten);
+					break;
 				}
 			}
+		}
 	}
+}
 
-
-	JobShop::~JobShop()
-	{
-		// TODO Auto-generated destructor stub
-	}
+JobShop::~JobShop()
+{
+	// TODO Auto-generated destructor stub
+}

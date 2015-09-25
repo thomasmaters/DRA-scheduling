@@ -38,7 +38,6 @@ Task::Task(const Task& aTask) :
 
 Task::~Task()
 {
-	//cout << machine << " " << tijdsduur << endl;
 	--counter;
 }
 

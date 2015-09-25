@@ -30,11 +30,14 @@ Job::Job(vector<pair<long, long>> Job)
 		jobID = i;
 		tasks.push_back(Task(machine, tijdsduur, jobID));
 		totalTime += tijdsduur;
+		executionEndTime = -1;
+		executionStartTime = -1;
 	}
 }
 
 Job::Job(const Job& aJob) :
-		jobID(aJob.jobID), totalTime(aJob.totalTime), tasks(aJob.tasks)
+		jobID(aJob.jobID), totalTime(aJob.totalTime), tasks(aJob.tasks),
+		executionStartTime(aJob.executionStartTime), executionEndTime(aJob.executionEndTime)
 {
 }
 
@@ -50,13 +53,17 @@ Job& Job::operator=(const Job& aJob)
 		jobID = aJob.jobID;
 		totalTime = aJob.totalTime;
 		tasks = aJob.tasks;
+		executionStartTime = aJob.executionStartTime;
+		executionEndTime = aJob.executionEndTime;
 	}
 	return *this;
 }
 
-
 void Job::reCalculate()
 {
+	if(executionStartTime == -1){
+		executionStartTime = tasks[0].getStartTime();
+	}
 	cout << tasks[0].getMachine() << " " << tasks[0].getTijdsduur() << endl;
 	totalTime -= tasks[0].getTijdsduur();
 
@@ -86,6 +93,15 @@ unsigned long Job::getTotalTime() const
 unsigned long Job::getMachine() const
 {
 	return tasks[0].getMachine();
+}
+
+void Job::startTask(unsigned long startTijd)
+{
+	if (size() - 1 == 0)
+	{
+		executionEndTime = startTijd + tasks[0].getTijdsduur();
+	}
+	tasks[0].startTask(startTijd);
 }
 
 unsigned long Job::size() const
