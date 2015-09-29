@@ -31,7 +31,7 @@ private:
 
 	unsigned long job_count;
 	unsigned long machine_count;
-	vector< Job > Jobs;
+	vector<Job> Jobs;
 	vector<bool> machines;
 };
 

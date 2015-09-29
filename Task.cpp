@@ -8,30 +8,20 @@
 #include "Task.hpp"
 #include<iostream>
 
-Task::Task():
-	machine(0),
-	tijdsduur(0),
-	jobID(0),
-	startTime(0),
-	endTime(0)
+Task::Task() :
+		machine(0), tijdsduur(0), jobID(0), startTime(0), endTime(0)
 {
 }
 
 Task::Task(unsigned long machine, unsigned long tijdsduur, unsigned long jobID) :
-		machine(machine),
-		tijdsduur(tijdsduur),
-		jobID(jobID),
-		startTime(0),
-		endTime(0)
+		machine(machine), tijdsduur(tijdsduur), jobID(jobID), startTime(0), endTime(
+				0)
 {
 }
 
 Task::Task(const Task& aTask) :
-		machine(aTask.machine),
-		tijdsduur(aTask.tijdsduur),
-		jobID(aTask.jobID),
-		startTime(aTask.startTime),
-		endTime(aTask.endTime)
+		machine(aTask.machine), tijdsduur(aTask.tijdsduur), jobID(aTask.jobID), startTime(
+				aTask.startTime), endTime(aTask.endTime)
 {
 }
 

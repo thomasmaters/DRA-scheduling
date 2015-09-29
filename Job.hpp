@@ -52,7 +52,6 @@ private:
 	signed long executionStartTime;
 	signed long executionEndTime;
 
-
 };
 
 #endif /* JOB_HPP_ */

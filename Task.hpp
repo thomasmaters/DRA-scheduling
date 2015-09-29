@@ -33,5 +33,4 @@ private:
 	unsigned long endTime;
 };
 
-
 #endif /* TASK_HPP_ */

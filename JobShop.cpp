@@ -14,26 +14,21 @@
 #include <fstream>
 #include <regex>
 
-vector<Job> Jobs;
-
-JobShop::JobShop():
-		job_count(0),
-		machine_count(0)
+JobShop::JobShop() :
+		job_count(0), machine_count(0), Jobs(vector<Job>())
 {
 	std::cout << "Input jobs file path." << endl;
 	readFile(readFromConsole());
 }
 
-JobShop::JobShop(const string& filepath):
-	job_count(0),
-	machine_count(0)
+JobShop::JobShop(const string& filepath) :
+		job_count(0), machine_count(0), Jobs(vector<Job>())
 {
 	readFile(filepath);
 }
 
-JobShop::JobShop(const JobShop &JS):
-		job_count(JS.job_count),
-		machine_count(JS.machine_count)
+JobShop::JobShop(const JobShop &JS) :
+		job_count(JS.job_count), machine_count(JS.machine_count)
 {
 }
 
@@ -43,7 +38,7 @@ string JobShop::readFromConsole() const
 	cin >> input_string;
 	return input_string;
 }
-//C:\Users\thomas\Desktop\test2.txt
+
 string JobShop::readFile(const string fileName)
 {
 	string line;

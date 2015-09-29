@@ -10,15 +10,16 @@
 #include "Task.hpp"
 #include "Job.hpp"
 
-int main(int argc, char **argv) {
-	if(argv[1]){
+int main(int argc, char **argv)
+{
+	if (argv[1])
+	{
 		JobShop j(argv[1]);
-	}else{
+	}
+	else
+	{
 		JobShop j;
 	}
 	return 0;
 }
-
-
-
 

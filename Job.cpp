@@ -9,23 +9,13 @@
 #include <vector>
 #include <iostream>
 
-//Hier komt een vector binnen met <2>,<1> vector[0].first, vector[0].second.
-//Voor elke pair een task aanmaken
-//Geef elke Job een ID.
-
-Job::Job():
-	jobID(0),
-	totalTime(0),
-	executionStartTime(-1),
-	executionEndTime(-1)
+Job::Job() :
+		jobID(0), totalTime(0), executionStartTime(-1), executionEndTime(-1)
 {
 }
 
-Job::Job(vector<pair<long, long>> Job, unsigned long jobID):
-		jobID(jobID),
-		totalTime(0),
-		executionStartTime(-1),
-		executionEndTime(-1)
+Job::Job(vector<pair<long, long>> Job, unsigned long jobID) :
+		jobID(jobID), totalTime(0), executionStartTime(-1), executionEndTime(-1)
 {
 	for (unsigned long i = 0; i < Job.size(); ++i)
 	{
@@ -37,8 +27,9 @@ Job::Job(vector<pair<long, long>> Job, unsigned long jobID):
 }
 
 Job::Job(const Job& aJob) :
-		jobID(aJob.jobID), totalTime(aJob.totalTime), tasks(aJob.tasks),
-		executionStartTime(aJob.executionStartTime), executionEndTime(aJob.executionEndTime)
+		jobID(aJob.jobID), totalTime(aJob.totalTime), tasks(aJob.tasks), executionStartTime(
+				aJob.executionStartTime), executionEndTime(
+				aJob.executionEndTime)
 {
 }
 
@@ -62,7 +53,8 @@ Job& Job::operator=(const Job& aJob)
 
 void Job::reCalculate()
 {
-	if(executionStartTime == -1){
+	if (executionStartTime == -1)
+	{
 		executionStartTime = tasks[0].getStartTime();
 	}
 	totalTime -= tasks[0].getTijdsduur();
