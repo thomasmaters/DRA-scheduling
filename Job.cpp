@@ -21,17 +21,18 @@ Job::Job()
 	cout << "Niet de default constructor aanroepen" << endl;
 }
 
-Job::Job(vector<pair<long, long>> Job)
+Job::Job(vector<pair<long, long>> Job, unsigned long jobID)
 {
+	this->jobID = jobID;
+	executionEndTime = -1;
+	executionStartTime = -1;
+
 	for (unsigned long i = 0; i < Job.size(); ++i)
 	{
 		unsigned long machine = Job[i].first;
 		unsigned long tijdsduur = Job[i].second;
-		jobID = i;
 		tasks.push_back(Task(machine, tijdsduur, jobID));
 		totalTime += tijdsduur;
-		executionEndTime = -1;
-		executionStartTime = -1;
 	}
 }
 
@@ -64,7 +65,7 @@ void Job::reCalculate()
 	if(executionStartTime == -1){
 		executionStartTime = tasks[0].getStartTime();
 	}
-	cout << tasks[0].getMachine() << " " << tasks[0].getTijdsduur() << endl;
+	cout <<  tasks[0].getMachine() << " " << tasks[0].getTijdsduur() << endl;
 	totalTime -= tasks[0].getTijdsduur();
 
 	tasks.erase(tasks.begin());
@@ -97,8 +98,7 @@ unsigned long Job::getMachine() const
 
 void Job::startTask(unsigned long startTijd)
 {
-	cout << "KAAS" << endl;
-	if (tasks.size() - 1 == 0)
+	if (tasks.size() == 1)
 	{
 		executionEndTime = startTijd + tasks[0].getTijdsduur();
 	}

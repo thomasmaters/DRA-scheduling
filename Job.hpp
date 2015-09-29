@@ -16,7 +16,7 @@ class Job
 {
 public:
 	Job();
-	Job(vector<pair<long, long> > Job);
+	Job(vector<pair<long, long> > Job, unsigned long jobID);
 	Job(const Job& aJob);
 
 	virtual ~Job();

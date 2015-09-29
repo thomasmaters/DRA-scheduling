@@ -59,6 +59,7 @@ string JobShop::readFile(const string fileName)
 		string match2(match[1]);
 		machine_count = atoi(match2.c_str());
 
+		unsigned long i = 0;
 		while (getline(myfile, line))
 		{
 			vector<pair<long, long>> v;
@@ -77,8 +78,9 @@ string JobShop::readFile(const string fileName)
 
 				v.push_back(make_pair(a, b));
 			}
-			Job j(v);
+			Job j(v,i);
 			Jobs.push_back(j);
+			++i;
 			cout << line << '\n';
 		}
 		myfile.close();
@@ -159,7 +161,7 @@ void JobShop::generateOutput()
 {
 	sort(Jobs.begin(), Jobs.end(), [](const Job & a, const Job & b) -> bool
 	{
-		return a.getJobId() > b.getJobId();
+		return a.getJobId() < b.getJobId();
 	});
 	for (auto & job : Jobs){
 		cout << job.getJobId() << "  " << job.getExecutionStartTime() << "  " << job.getExecutionEndTime() << endl;
