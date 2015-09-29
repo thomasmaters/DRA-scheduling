@@ -17,7 +17,7 @@
 JobShop::JobShop() :
 		job_count(0), machine_count(0), Jobs(vector<Job>())
 {
-	std::cout << "Input jobs file path." << endl;
+	std::cout << "Input file path:" << endl;
 	readFile(readFromConsole());
 }
 
@@ -126,7 +126,7 @@ void JobShop::calculate()
 		assignTasks(minuten);
 
 		++minuten;
-		if (minuten > 100)
+		if (minuten > 100000)
 		{
 			break;
 		}
