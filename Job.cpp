@@ -8,7 +8,6 @@
 #include "Job.hpp"
 #include <vector>
 #include <iostream>
-using namespace std;
 
 //Hier komt een vector binnen met <2>,<1> vector[0].first, vector[0].second.
 //Voor elke pair een task aanmaken

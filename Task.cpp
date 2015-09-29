@@ -7,7 +7,6 @@
 
 #include "Task.hpp"
 #include<iostream>
-using namespace std;
 unsigned long Task::counter = 0;
 //Krijgt Jobs binnen en doet er nog niks mee. Doe maar even couten
 
@@ -18,7 +17,7 @@ Task::Task()
 	jobID = 0;
 	startTime= 0;
 	endTime = 0;
-	cout << "Niet de default constructor aanroepen" << endl;
+	std::cout << "Niet de default constructor aanroepen" << std::endl;
 }
 
 Task::Task(unsigned long machine, unsigned long tijdsduur, unsigned long jobID) :
@@ -78,5 +77,5 @@ void Task::startTask(unsigned long startTijd)
 {
 	startTime = startTijd;
 	endTime = startTime + tijdsduur;
-	//cout << machine << " " << tijdsduur << " " << endTime <<endl;
+	//std::cout << machine << " " << tijdsduur << " " << endTime <<std::endl;
 }
