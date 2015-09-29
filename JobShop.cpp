@@ -48,33 +48,28 @@ string JobShop::readFile(const string fileName)
 	if (myfile.is_open())
 	{
 		std::smatch match;
-		regex reg("([0-9]*[0-9])");
+		std::regex reg("([0-9]*[0-9])");
 
 		getline(myfile, line);
 
 		regex_search(line, match, reg);
-		string match1(match[1]);
-		job_count = atoi(match1.c_str());
+		job_count = findNextMatch(match);
 
 		regex_search(line, match, reg);
-		string match2(match[1]);
-		machine_count = atoi(match2.c_str());
+		machine_count = findNextMatch(match);
 
 		unsigned long i = 0;
 		while (getline(myfile, line))
 		{
 			vector<pair<long, long>> v;
 
-			std::smatch match;
 			while (regex_search(line, match, reg))
 			{
-				string match1(match[1]);
-				long int a = atoi(match1.c_str());
+				long int a = findNextMatch(match);
 				line = match.suffix().str();
 
 				regex_search(line, match, reg);
-				string match2(match[1]);
-				long int b = atoi(match2.c_str());
+				long int b = findNextMatch(match);
 				line = match.suffix().str();
 
 				v.push_back(make_pair(a, b));
@@ -87,8 +82,9 @@ string JobShop::readFile(const string fileName)
 	}
 	else
 	{
-		cout << "No file found, check your path and try again.." << endl;
+		std::cout << "No file found, check your path and try again.." << endl;
 		readFile(readFromConsole());
+		exit(0);
 	}
 
 	for (unsigned long i = 0; i < machine_count; ++i)
@@ -99,6 +95,12 @@ string JobShop::readFile(const string fileName)
 
 	return fileName;
 }
+
+unsigned long JobShop::findNextMatch(smatch match){
+	std::string match1(match[1]);
+	return std::atoi(match1.c_str());
+}
+
 
 void JobShop::calculate()
 {
