@@ -23,6 +23,7 @@ Job::Job():
 
 Job::Job(vector<pair<long, long>> Job, unsigned long jobID):
 		jobID(jobID),
+		totalTime(0),
 		executionStartTime(-1),
 		executionEndTime(-1)
 {
@@ -64,7 +65,6 @@ void Job::reCalculate()
 	if(executionStartTime == -1){
 		executionStartTime = tasks[0].getStartTime();
 	}
-	//cout <<  tasks[0].getMachine() << " " << tasks[0].getTijdsduur() << endl;
 	totalTime -= tasks[0].getTijdsduur();
 
 	tasks.erase(tasks.begin());

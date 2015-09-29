@@ -15,6 +15,7 @@ class JobShop
 {
 public:
 	JobShop();
+	JobShop(const string &filepath);
 	JobShop(const JobShop &JS);
 
 	string readFromConsole() const;

@@ -21,7 +21,14 @@ JobShop::JobShop():
 		machine_count(0)
 {
 	std::cout << "Input jobs file path." << endl;
-	readFile("C:\\Users\\thomas\\Desktop\\test2.txt");
+	readFile(readFromConsole());
+}
+
+JobShop::JobShop(const string& filepath):
+	job_count(0),
+	machine_count(0)
+{
+	readFile(filepath);
 }
 
 JobShop::JobShop(const JobShop &JS):
@@ -159,6 +166,8 @@ void JobShop::generateOutput()
 		cout << job.getJobId() << "  " << job.getExecutionStartTime() << "  "
 				<< job.getExecutionEndTime() << endl;
 	}
+	system("pause");
+	exit(0);
 }
 
 void JobShop::assignTasks(unsigned long minuten)
