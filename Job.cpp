@@ -97,6 +97,7 @@ unsigned long Job::getMachine() const
 
 void Job::startTask(unsigned long startTijd)
 {
+	cout << "KAAS" << endl;
 	if (tasks.size() - 1 == 0)
 	{
 		executionEndTime = startTijd + tasks[0].getTijdsduur();
