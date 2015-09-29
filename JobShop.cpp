@@ -16,18 +16,18 @@
 
 vector<Job> Jobs;
 
-JobShop::JobShop()
+JobShop::JobShop():
+		job_count(0),
+		machine_count(0)
 {
-	job_count = 0;
-	machine_count = 0;
 	std::cout << "Input jobs file path." << endl;
 	readFile("C:\\Users\\thomas\\Desktop\\test2.txt");
 }
 
-JobShop::JobShop(const JobShop &JS)
+JobShop::JobShop(const JobShop &JS):
+		job_count(JS.job_count),
+		machine_count(JS.machine_count)
 {
-	job_count = JS.job_count;
-	machine_count = JS.machine_count;
 }
 
 string JobShop::readFromConsole() const
@@ -80,7 +80,6 @@ string JobShop::readFile(const string fileName)
 			Job j(v, i);
 			Jobs.push_back(j);
 			++i;
-			//cout << line << '\n';
 		}
 		myfile.close();
 	}
@@ -94,8 +93,6 @@ string JobShop::readFile(const string fileName)
 	{
 		machines.push_back(false);
 	}
-
-	//cout << "jobsize :" << Jobs.size() << endl;
 	calculate();
 
 	return fileName;
@@ -104,9 +101,7 @@ string JobShop::readFile(const string fileName)
 void JobShop::calculate()
 {
 	unsigned long minuten = 0;
-	cout << "start berekening" << endl;
-	cout << "Aantal Jobs: " << Jobs.size() << endl;
-	cout << "Aantal Machines: " << machines.size() << endl;
+
 	while (checkForJobs())
 	{
 		for (unsigned long i = 0; i < machine_count; ++i)
@@ -115,20 +110,19 @@ void JobShop::calculate()
 			{ //is machine bezig?
 				for (auto & job : Jobs)
 				{ // ga alle jobs langs
-					if (job.size() > 0 && job[0].getEndTime() == minuten)
+					if (job.size() != 0 && job[0].getEndTime() == minuten)
 					{ //controlleer eind tijd of task gestopt moet worden
 						machines[job[0].getMachine()] = false; //zet machine beschikbaar
-						cout << job[0].getMachine() << " " << machines[job[0].getMachine()] << " beschikbaar" << endl;
 						job.reCalculate();   //verwijder task uit job
-						break;
 					}
 				}
 			}
 		}
-		sortJobs();
+
 		assignTasks(minuten);
+
 		++minuten;
-		if (minuten > 500)
+		if (minuten > 100)
 		{
 			break;
 		}
@@ -176,12 +170,10 @@ void JobShop::assignTasks(unsigned long minuten)
 		{   // machine not occupied
 			for (auto & job : Jobs)
 			{   // loop through jobs
-				//cout << job.getMachine() << " " << i << endl;
 				if (job.size() > 0 && job.getMachine() == i)
 				{
-					job.startTask(minuten);
 					machines[job[0].getMachine()] = true;
-					cout << job[0].getMachine() << " " << machines[job[0].getMachine()] << " onbeschikbaar" << endl;
+					job.startTask(minuten);
 					assignTasks(minuten);
 					break;
 				}
