@@ -13,7 +13,6 @@
 #include <iterator>
 #include <fstream>
 #include <regex>
-using namespace std;
 
 vector<Job> Jobs;
 
@@ -21,7 +20,7 @@ JobShop::JobShop()
 {
 	job_count = 0;
 	machine_count = 0;
-	cout << "Input jobs file path." << endl;
+	std::cout << "Input jobs file path." << endl;
 	readFile("C:\\Users\\thomas\\Desktop\\test2.txt");
 }
 
@@ -91,7 +90,7 @@ string JobShop::readFile(const string fileName)
 		readFile(readFromConsole());
 	}
 
-	for (auto i = 0; i < machine_count; ++i)
+	for (unsigned long i = 0; i < machine_count; ++i)
 	{
 		machines.push_back(false);
 	}
@@ -110,16 +109,16 @@ void JobShop::calculate()
 	cout << "Aantal Machines: " << machines.size() << endl;
 	while (checkForJobs())
 	{
-		for (auto machine : machines)
+		for (unsigned long i = 0; i < machine_count; ++i)
 		{ //loop door machines
-			if (machine)
+			if (machines[i])
 			{ //is machine bezig?
 				for (auto & job : Jobs)
 				{ // ga alle jobs langs
-					if (job.size() > 0 && job[0].getEndTime() == minuten
-							&& job[0].getEndTime() != 0)
+					if (job.size() > 0 && job[0].getEndTime() == minuten)
 					{ //controlleer eind tijd of task gestopt moet worden
 						machines[job[0].getMachine()] = false; //zet machine beschikbaar
+						cout << job[0].getMachine() << " " << machines[job[0].getMachine()] << " beschikbaar" << endl;
 						job.reCalculate();   //verwijder task uit job
 						break;
 					}
@@ -129,7 +128,7 @@ void JobShop::calculate()
 		sortJobs();
 		assignTasks(minuten);
 		++minuten;
-		if (minuten > 5000)
+		if (minuten > 500)
 		{
 			break;
 		}
@@ -139,14 +138,12 @@ void JobShop::calculate()
 
 bool JobShop::checkForJobs()
 {
+	unsigned long size = 0;
 	for (auto & job : Jobs)
 	{
-		if (!job.isEmpty())
-		{
-			return true;
-		}
+		size += job.size();
 	}
-	return false;
+	return size != 0;
 }
 
 void JobShop::sortJobs()
@@ -173,17 +170,18 @@ void JobShop::generateOutput()
 void JobShop::assignTasks(unsigned long minuten)
 {
 	sortJobs();
-	for (auto i = 0; i < signed(machine_count); ++i)
+	for (unsigned long i = 0; i < machine_count; ++i)
 	{   // loop throug machines
-		if (machines[i] == false)
+		if (!machines[i])
 		{   // machine not occupied
 			for (auto & job : Jobs)
 			{   // loop through jobs
-				if (job.size() > 0 && signed(job.getMachine()) == i
-						&& job[0].getEndTime() == 0)
+				//cout << job.getMachine() << " " << i << endl;
+				if (job.size() > 0 && job.getMachine() == i)
 				{
 					job.startTask(minuten);
 					machines[job[0].getMachine()] = true;
+					cout << job[0].getMachine() << " " << machines[job[0].getMachine()] << " onbeschikbaar" << endl;
 					assignTasks(minuten);
 					break;
 				}

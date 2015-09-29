@@ -10,7 +10,6 @@
 #include <string>
 #include <vector>
 #include "Job.hpp"
-using namespace std;
 
 class JobShop
 {
@@ -29,8 +28,8 @@ private:
 	void sortJobs();
 	void assignTasks(unsigned long minuten);
 
-	long int job_count;
-	long int machine_count;
+	unsigned long job_count;
+	unsigned long machine_count;
 	vector< Job > Jobs;
 	vector<bool> machines;
 };
