@@ -65,7 +65,7 @@ void Job::reCalculate()
 	if(executionStartTime == -1){
 		executionStartTime = tasks[0].getStartTime();
 	}
-	cout <<  tasks[0].getMachine() << " " << tasks[0].getTijdsduur() << endl;
+	//cout <<  tasks[0].getMachine() << " " << tasks[0].getTijdsduur() << endl;
 	totalTime -= tasks[0].getTijdsduur();
 
 	tasks.erase(tasks.begin());

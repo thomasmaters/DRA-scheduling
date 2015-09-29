@@ -78,10 +78,10 @@ string JobShop::readFile(const string fileName)
 
 				v.push_back(make_pair(a, b));
 			}
-			Job j(v,i);
+			Job j(v, i);
 			Jobs.push_back(j);
 			++i;
-			cout << line << '\n';
+			//cout << line << '\n';
 		}
 		myfile.close();
 	}
@@ -96,7 +96,7 @@ string JobShop::readFile(const string fileName)
 		machines.push_back(false);
 	}
 
-	cout << "jobsize :" << Jobs.size() << endl;
+	//cout << "jobsize :" << Jobs.size() << endl;
 	calculate();
 
 	return fileName;
@@ -104,9 +104,10 @@ string JobShop::readFile(const string fileName)
 
 void JobShop::calculate()
 {
-	cout << "start berekening" << endl;
 	unsigned long minuten = 0;
-	cout << machines.size() << endl;
+	cout << "start berekening" << endl;
+	cout << "Aantal Jobs: " << Jobs.size() << endl;
+	cout << "Aantal Machines: " << machines.size() << endl;
 	while (checkForJobs())
 	{
 		for (auto machine : machines)
@@ -118,7 +119,6 @@ void JobShop::calculate()
 					if (job.size() > 0 && job[0].getEndTime() == minuten
 							&& job[0].getEndTime() != 0)
 					{ //controlleer eind tijd of task gestopt moet worden
-						cout << "task verwijd op:" << minuten << "     ";
 						machines[job[0].getMachine()] = false; //zet machine beschikbaar
 						job.reCalculate();   //verwijder task uit job
 						break;
@@ -163,8 +163,10 @@ void JobShop::generateOutput()
 	{
 		return a.getJobId() < b.getJobId();
 	});
-	for (auto & job : Jobs){
-		cout << job.getJobId() << "  " << job.getExecutionStartTime() << "  " << job.getExecutionEndTime() << endl;
+	for (auto & job : Jobs)
+	{
+		cout << job.getJobId() << "  " << job.getExecutionStartTime() << "  "
+				<< job.getExecutionEndTime() << endl;
 	}
 }
 
@@ -180,7 +182,6 @@ void JobShop::assignTasks(unsigned long minuten)
 				if (job.size() > 0 && signed(job.getMachine()) == i
 						&& job[0].getEndTime() == 0)
 				{
-					cout << "task gestart op:" << minuten << "     ";
 					job.startTask(minuten);
 					machines[job[0].getMachine()] = true;
 					assignTasks(minuten);

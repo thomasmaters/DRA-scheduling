@@ -27,7 +27,7 @@ Task::Task(unsigned long machine, unsigned long tijdsduur, unsigned long jobID) 
 	++counter;
 	startTime = 0;
 	endTime = 0;
-	cout << machine << " " << tijdsduur << " " << jobID << " " << startTime << " " << endTime << endl;
+	//cout << machine << " " << tijdsduur << " " << jobID << " " << startTime << " " << endTime << endl;
 }
 
 Task::Task(const Task& aTask) :
@@ -78,5 +78,5 @@ void Task::startTask(unsigned long startTijd)
 {
 	startTime = startTijd;
 	endTime = startTime + tijdsduur;
-	cout << machine << " " << tijdsduur << " " << endTime <<endl;
+	//cout << machine << " " << tijdsduur << " " << endTime <<endl;
 }
