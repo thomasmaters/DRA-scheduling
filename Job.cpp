@@ -13,19 +13,19 @@
 //Voor elke pair een task aanmaken
 //Geef elke Job een ID.
 
-Job::Job()
+Job::Job():
+	jobID(0),
+	totalTime(0),
+	executionStartTime(-1),
+	executionEndTime(-1)
 {
-	jobID = 0;
-	totalTime = 0;
-	cout << "Niet de default constructor aanroepen" << endl;
 }
 
-Job::Job(vector<pair<long, long>> Job, unsigned long jobID)
+Job::Job(vector<pair<long, long>> Job, unsigned long jobID):
+		jobID(jobID),
+		executionStartTime(-1),
+		executionEndTime(-1)
 {
-	this->jobID = jobID;
-	executionEndTime = -1;
-	executionStartTime = -1;
-
 	for (unsigned long i = 0; i < Job.size(); ++i)
 	{
 		unsigned long machine = Job[i].first;

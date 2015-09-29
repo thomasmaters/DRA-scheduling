@@ -7,37 +7,36 @@
 
 #include "Task.hpp"
 #include<iostream>
-unsigned long Task::counter = 0;
-//Krijgt Jobs binnen en doet er nog niks mee. Doe maar even couten
 
-Task::Task()
+Task::Task():
+	machine(0),
+	tijdsduur(0),
+	jobID(0),
+	startTime(0),
+	endTime(0)
 {
-	machine = 0;
-	tijdsduur = 0;
-	jobID = 0;
-	startTime= 0;
-	endTime = 0;
-	std::cout << "Niet de default constructor aanroepen" << std::endl;
 }
 
 Task::Task(unsigned long machine, unsigned long tijdsduur, unsigned long jobID) :
-		machine(machine), tijdsduur(tijdsduur), jobID(jobID)
+		machine(machine),
+		tijdsduur(tijdsduur),
+		jobID(jobID),
+		startTime(0),
+		endTime(0)
 {
-	++counter;
-	startTime = 0;
-	endTime = 0;
-	//cout << machine << " " << tijdsduur << " " << jobID << " " << startTime << " " << endTime << endl;
 }
 
 Task::Task(const Task& aTask) :
-		machine(aTask.machine), tijdsduur(aTask.tijdsduur), jobID(aTask.jobID), startTime(aTask.startTime), endTime(aTask.endTime)
+		machine(aTask.machine),
+		tijdsduur(aTask.tijdsduur),
+		jobID(aTask.jobID),
+		startTime(aTask.startTime),
+		endTime(aTask.endTime)
 {
-	++counter;
 }
 
 Task::~Task()
 {
-	--counter;
 }
 
 Task& Task::operator=(const Task& aTask)
@@ -77,5 +76,4 @@ void Task::startTask(unsigned long startTijd)
 {
 	startTime = startTijd;
 	endTime = startTime + tijdsduur;
-	//std::cout << machine << " " << tijdsduur << " " << endTime <<std::endl;
 }
