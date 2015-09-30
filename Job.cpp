@@ -69,12 +69,30 @@ bool Job::isEmpty()
 
 Task& Job::operator [](int idx)
 {
-	return tasks.at(idx);
+	try
+	{
+		return tasks.at(idx);
+	}
+
+	catch (const std::out_of_range& oor)
+	{
+		std::cerr << "Out of Range error: " << oor.what() << '\n';
+	}
+	return tasks[0];
 }
 
 const Task& Job::operator [](int idx) const
 {
-	return tasks[idx];
+	try
+	{
+		return tasks[idx];
+	}
+
+	catch (const std::out_of_range& oor)
+	{
+		std::cerr << "Out of Range error: " << oor.what() << '\n';
+	}
+	return tasks[0];
 }
 
 unsigned long Job::getTotalTime() const

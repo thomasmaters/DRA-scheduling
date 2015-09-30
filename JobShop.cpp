@@ -126,7 +126,7 @@ void JobShop::calculate()
 		assignTasks(minuten);
 
 		++minuten;
-		if(minuten > 500){
+		if(minuten > 50000){
 			break;
 		}
 	}

@@ -9,6 +9,7 @@
 #define JOB_HPP_
 #include <iostream>
 #include <vector>
+#include <stdexcept>
 #include "Task.hpp"
 using namespace std;
 
