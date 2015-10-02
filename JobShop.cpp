@@ -82,7 +82,7 @@ string JobShop::readFile(const string fileName)
 	}
 	else
 	{
-		std::cout << "No file found, check your path and try again.." << endl;
+		std::cout << "No file found, check your path and type it below again..." << endl;
 		readFile(readFromConsole());
 		exit(0);
 	}
