@@ -6,20 +6,24 @@
  */
 
 #include "Job.hpp"
-#include <vector>
-#include <iostream>
 
 Job::Job() :
-		jobID(0), totalTime(0), executionStartTime(-1), executionEndTime(-1)
+		jobID(0),
+		totalTime(0),
+		executionStartTime(-1),
+		executionEndTime(-1)
 {
 }
 
-Job::Job(vector<pair<long, long>> Job, unsigned long jobID) :
-		jobID(jobID), totalTime(0), executionStartTime(-1), executionEndTime(-1)
+Job::Job(std::vector<std::pair<long, long>> Job, unsigned long jobID) :
+		jobID(jobID),
+		totalTime(0),
+		executionStartTime(-1),
+		executionEndTime(-1)
 {
-	for (unsigned long i = 0; i < Job.size(); ++i)
+	for (unsigned char i = 0; i < Job.size(); ++i)
 	{
-		unsigned long machine = Job[i].first;
+		unsigned char machine = Job[i].first;
 		unsigned long tijdsduur = Job[i].second;
 		tasks.push_back(Task(machine, tijdsduur, jobID));
 		totalTime += tijdsduur;
@@ -27,15 +31,16 @@ Job::Job(vector<pair<long, long>> Job, unsigned long jobID) :
 }
 
 Job::Job(const Job& aJob) :
-		jobID(aJob.jobID), totalTime(aJob.totalTime), tasks(aJob.tasks), executionStartTime(
-				aJob.executionStartTime), executionEndTime(
-				aJob.executionEndTime)
+		jobID(aJob.jobID),
+		totalTime(aJob.totalTime),
+		tasks(aJob.tasks),
+		executionStartTime(aJob.executionStartTime),
+		executionEndTime(aJob.executionEndTime)
 {
 }
 
 Job::~Job()
 {
-	// TODO Auto-generated destructor stub
 }
 
 Job& Job::operator=(const Job& aJob)
@@ -51,37 +56,7 @@ Job& Job::operator=(const Job& aJob)
 	return *this;
 }
 
-void Job::reCalculate()
-{
-	if (executionStartTime == -1)
-	{
-		executionStartTime = tasks[0].getStartTime();
-	}
-	totalTime -= tasks[0].getTijdsduur();
-
-	tasks.erase(tasks.begin());
-}
-
-bool Job::isEmpty()
-{
-	return tasks.empty();
-}
-
-Task& Job::operator [](int idx)
-{
-	try
-	{
-		return tasks.at(idx);
-	}
-
-	catch (const std::out_of_range& oor)
-	{
-		std::cerr << "Out of Range error: " << oor.what() << '\n';
-	}
-	return tasks[0];
-}
-
-const Task& Job::operator [](int idx) const
+const Task& Job::operator [](unsigned char idx) const
 {
 	try
 	{
@@ -95,14 +70,15 @@ const Task& Job::operator [](int idx) const
 	return tasks[0];
 }
 
-unsigned long Job::getTotalTime() const
+void Job::reCalculate()
 {
-	return totalTime;
-}
+	if (executionStartTime == -1)
+	{
+		executionStartTime = tasks[0].getStartTime();
+	}
+	totalTime -= tasks[0].getTijdsduur();
 
-unsigned long Job::getMachine() const
-{
-	return tasks[0].getMachine();
+	tasks.erase(tasks.begin());
 }
 
 void Job::startTask(unsigned long startTijd)
@@ -114,6 +90,21 @@ void Job::startTask(unsigned long startTijd)
 	tasks[0].startTask(startTijd);
 }
 
+bool Job::isEmpty()
+{
+	return tasks.empty();
+}
+
+unsigned long Job::getTotalTime() const
+{
+	return totalTime;
+}
+
+unsigned long Job::getMachine() const
+{
+	return tasks[0].getMachine();
+}
+
 unsigned long Job::size() const
 {
 	return tasks.size();
@@ -122,4 +113,14 @@ unsigned long Job::size() const
 unsigned long Job::getJobId() const
 {
 	return jobID;
+}
+
+signed long Job::getExecutionEndTime() const
+{
+	return executionEndTime;
+}
+
+signed long Job::getExecutionStartTime() const
+{
+	return executionStartTime;
 }

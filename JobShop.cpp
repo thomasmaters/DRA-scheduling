@@ -15,35 +15,39 @@
 #include <regex>
 
 JobShop::JobShop() :
-		job_count(0), machine_count(0), Jobs(vector<Job>())
+		job_count(0), machine_count(0), Jobs(std::vector<Job>())
 {
-	std::cout << "Input file path:" << endl;
-	readFile(readFromConsole());
+	//readFile(readFromConsole());
+	readFile("/home/maurice/Desktop/test.txt");
 }
 
-JobShop::JobShop(const string& filepath) :
-		job_count(0), machine_count(0), Jobs(vector<Job>())
+JobShop::JobShop(const std::string& filepath) :
+		job_count(0), machine_count(0), Jobs(std::vector<Job>())
 {
 	readFile(filepath);
 }
 
-JobShop::JobShop(const JobShop &JS) :
-		job_count(JS.job_count), machine_count(JS.machine_count)
+JobShop::JobShop(const JobShop& aJobShop) :
+		job_count(aJobShop.job_count), machine_count(aJobShop.machine_count)
 {
 }
 
-string JobShop::readFromConsole() const
+JobShop::~JobShop()
 {
-	string input_string;
-	cin >> input_string;
+}
+
+std::string JobShop::readFromConsole() const
+{
+	std::string input_string;
+	std::cin >> input_string;
 	return input_string;
 }
 
-string JobShop::readFile(const string fileName)
+std::string JobShop::readFile(const std::string& fileName)
 {
-	string line;
-	string output;
-	ifstream myfile(fileName);
+	std::string line;
+	std::string output;
+	std::ifstream myfile(fileName);
 
 	if (myfile.is_open())
 	{
@@ -58,10 +62,10 @@ string JobShop::readFile(const string fileName)
 		regex_search(line, match, reg);
 		machine_count = findNextMatch(match);
 
-		unsigned long i = 0;
+		unsigned char i = 0;
 		while (getline(myfile, line))
 		{
-			vector<pair<long, long>> v;
+			std::vector<std::pair<long, long>> tasks;
 
 			while (regex_search(line, match, reg))
 			{
@@ -72,9 +76,9 @@ string JobShop::readFile(const string fileName)
 				long int b = findNextMatch(match);
 				line = match.suffix().str();
 
-				v.push_back(make_pair(a, b));
+				tasks.push_back(std::make_pair(a, b));
 			}
-			Job j(v, i);
+			Job j(tasks, i);
 			Jobs.push_back(j);
 			++i;
 		}
@@ -82,12 +86,12 @@ string JobShop::readFile(const string fileName)
 	}
 	else
 	{
-		std::cout << "No file found, check your path and type it below again..." << endl;
+		std::cout << "No file found, check your path and type it below again..." << std::endl;
 		readFile(readFromConsole());
 		exit(0);
 	}
 
-	for (unsigned long i = 0; i < machine_count; ++i)
+	for (unsigned char i = 0; i < machine_count; ++i)
 	{
 		machines.push_back(false);
 	}
@@ -96,7 +100,7 @@ string JobShop::readFile(const string fileName)
 	return fileName;
 }
 
-unsigned long JobShop::findNextMatch(smatch match){
+unsigned long JobShop::findNextMatch(std::smatch match){
 	std::string match1(match[1]);
 	return std::atoi(match1.c_str());
 }
@@ -108,16 +112,21 @@ void JobShop::calculate()
 
 	while (checkForJobs())
 	{
+		//loop through machines
 		for (unsigned long i = 0; i < machine_count; ++i)
-		{ //loop door machines
+		{
+			//Check for the machines, if they are busy or not
 			if (machines[i])
-			{ //is machine bezig?
+			{
 				for (auto & job : Jobs)
-				{ // ga alle jobs langs
+				{
+					//Check endTime to decide if task needs to be quite
 					if (job.size() != 0 && job[0].getEndTime() == minuten)
-					{ //controlleer eind tijd of task gestopt moet worden
-						machines[job[0].getMachine()] = false; //zet machine beschikbaar
-						job.reCalculate();   //verwijder task uit job
+					{
+						//If Task had to be quite, remove task from machine.
+						machines[job[0].getMachine()] = false;
+						//Delete task from job
+						job.reCalculate();
 					}
 				}
 			}
@@ -136,7 +145,7 @@ void JobShop::calculate()
 bool JobShop::checkForJobs()
 {
 	unsigned long size = 0;
-	for (auto & job : Jobs)
+	for (Job& job : Jobs)
 	{
 		size += job.size();
 	}
@@ -145,7 +154,7 @@ bool JobShop::checkForJobs()
 
 void JobShop::sortJobs()
 {
-	sort(Jobs.begin(), Jobs.end(), [](const Job & a, const Job & b) -> bool
+	std::sort(Jobs.begin(), Jobs.end(), [](const Job& a, const Job& b) -> bool
 	{
 		return a.getTotalTime() > b.getTotalTime();
 	});
@@ -153,28 +162,28 @@ void JobShop::sortJobs()
 
 void JobShop::generateOutput()
 {
-	sort(Jobs.begin(), Jobs.end(), [](const Job & a, const Job & b) -> bool
+	std::sort(Jobs.begin(), Jobs.end(), [](const Job & a, const Job & b) -> bool
 	{
 		return a.getJobId() < b.getJobId();
 	});
-	for (auto & job : Jobs)
+	for (Job& job : Jobs)
 	{
-		cout << job.getJobId() << "  " << job.getExecutionStartTime() << "  "
-				<< job.getExecutionEndTime() << endl;
+		std::cout << job.getJobId() << "  " << job.getExecutionStartTime() << "  " << job.getExecutionEndTime() << std::endl;
 	}
-	system("pause");
 	exit(0);
 }
 
 void JobShop::assignTasks(unsigned long minuten)
 {
 	sortJobs();
-	for (unsigned long i = 0; i < machine_count; ++i)
-	{   // loop throug machines
+	// loop through machines
+	for (unsigned char i = 0; i < machine_count; ++i)
+	{
 		if (!machines[i])
-		{   // machine not occupied
+		{
 			for (auto & job : Jobs)
-			{   // loop through jobs
+			{
+				// loop through jobs
 				if (job.size() > 0 && job.getMachine() == i)
 				{
 					machines[job[0].getMachine()] = true;
@@ -185,9 +194,4 @@ void JobShop::assignTasks(unsigned long minuten)
 			}
 		}
 	}
-}
-
-JobShop::~JobShop()
-{
-	// TODO Auto-generated destructor stub
 }

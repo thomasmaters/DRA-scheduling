@@ -19,13 +19,13 @@ class JobShop
 {
 public:
 	JobShop();
-	JobShop(const string &filepath);
-	JobShop(const JobShop &JS);
-
-	string readFromConsole() const;
-	string readFile(const string fileName);
-
+	JobShop(const std::string& filepath);
+	JobShop(const JobShop& aJobShop);
 	virtual ~JobShop();
+
+	std::string readFromConsole() const;
+	std::string readFile(const std::string& fileName);
+
 private:
 	void generateOutput();
 	void calculate();
@@ -33,12 +33,12 @@ private:
 	void assignTasks(unsigned long minuten);
 
 	bool checkForJobs();
-	unsigned long findNextMatch(smatch match);
+	unsigned long findNextMatch(std::smatch match);
 
 	unsigned long job_count;
 	unsigned long machine_count;
-	vector<Job> Jobs;
-	vector<bool> machines;
+	std::vector<Job> Jobs;
+	std::vector<bool> machines;
 };
 
 #endif /* JOBSHOP_HPP_ */

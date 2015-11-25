@@ -6,7 +6,6 @@
  */
 
 #include "Task.hpp"
-#include<iostream>
 
 Task::Task() :
 		machine(0), tijdsduur(0), jobID(0), startTime(0), endTime(0)
