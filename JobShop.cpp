@@ -58,6 +58,7 @@ std::string JobShop::readFile(const std::string& fileName)
 		regex_search(line, match, reg);
 		job_count = findNextMatch(match);
 
+		line = match.suffix().str();
 		regex_search(line, match, reg);
 		machine_count = findNextMatch(match);
 
