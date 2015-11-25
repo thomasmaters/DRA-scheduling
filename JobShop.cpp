@@ -17,8 +17,7 @@
 JobShop::JobShop() :
 		job_count(0), machine_count(0), Jobs(std::vector<Job>())
 {
-	//readFile(readFromConsole());
-	readFile("/home/maurice/Desktop/test.txt");
+	readFile(readFromConsole());
 }
 
 JobShop::JobShop(const std::string& filepath) :
